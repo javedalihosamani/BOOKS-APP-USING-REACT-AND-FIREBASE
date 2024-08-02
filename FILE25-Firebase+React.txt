@@ -1,0 +1,230 @@
+WHAT IS A FIREBASE?
+    - Firebase is a set of backend cloud computing services and application development platforms provided by Google.
+    
+    - It hosts databases, services, authentication, and integration for a variety of applications, including Android, iOS, JavaScript, Node.js, Java, Unity, PHP, and C++. 
+    
+    - Discover Firebase, Google's mobile and web app development platform that helps developers build apps and games that users will love.
+
+
+STEPS FOR TO CREATE A FIREBASE SERVICE.
+    STEP-1 :
+        - Go to Firebase official website and login with your google account.
+
+    STEP-2 :
+        - Click on Go to Console button. It is comes under navigation bar(Right Side)
+
+    STEP-3 : 
+        - When you are into the firebase console page you can click on CREATE A PROJECT button.
+
+    STEP-4 :
+        - Enter your project name ("youtube-app" => This is my project name) and click on the continue button and then disabled google analytic option then click to CREATE PROJECT button. 
+        - After that it will take a time to create a new project and then click on CONTINUE button to continue.
+
+    STEP-5 :
+        - After that you will get a new project profile page.
+
+    STEP-6 :
+        - In your project profile page, at the right side of your menu you will get a so many options.(BUILD, RUN, ANALYTICS)
+
+    STEP-7 :
+        - Click on the BUILD option and you will get a so many options.
+            -> AUTHENTICATION(This is a Service) is available, and you can use it to configure of the authentication like google and github. By using this authentication you can configure the users.
+            
+            -> FIRE STORE DATABASE(This is a Service) is available, and this is a document based database. This is a popular database. We are using this database in our project.
+            
+            -> It will maintain the database in form of document structure.
+
+            -> REAL TIME DATABASE(This is a Service) is available, and it looks like a fire store database. If you are update any data here, our app will be updated automatically.
+            
+            -> It will maintain the database in form of tree structure.
+
+            -> STORE(This is a Service) is available, and it keeps the data like files, photos and videos which is uploaded by the user. It's like a cloud storage service.
+
+            -> HOSTING(This is a Service) is available, and it is used for to host your application.
+
+            -> FUNCTIONS, MACHINE LEARNING(This is a Service) is available, and these are the basic overview of firebase.
+
+
+HOW TO SET UP A REACT AND FIREBASE PROJECT?
+    STEP 1: 
+        - Create a new REACT application.
+    
+    STEP 2: 
+        - Go to the FIREBASE PROJECT profile page, in that page you will see the title like "Get started by adding Firebase to your app"
+    
+    STEP 3:
+        - Below the title of your FIREBASE PROJECT profile page, you will see the ICONS like iOS, ANDROID and WEB.
+    
+    STEP 4: 
+        - Clicking on the WEB icon, you will get a page which helps to connect with the web app.
+    
+    STEP 5: 
+        - In the connection(Add Firebase to your web App) page, you will get a text box for to register your web app and my application name is "youtube-web-app" then click on the REGISTER APP" button.
+
+    STEP 6: 
+        - After you have registered you will get a cmd NPM I FIREBASE.
+
+    STEP 7: 
+        - Go back to the react app and install the cmd i.e NPM I FIREBASE
+
+    STEP 8: 
+        - After installing the cmd then, initialize Firebase and begin using the SDKs for the products that you'd like to use.
+
+            -> So that create firebase.js file inside the SRC react app and copy the firebase SKD form the firebase connection page and paste it into the firebase.js file.
+
+            -> This FIREBASE SDK helps you connect to the react app.
+
+            -> After that click on the CONTINUE TO THE CONSOLE button.
+
+            -> After click on the CONTINUE TO THE CONSOLE button you will get FIREBASE project profile page. 
+
+            -> In that page, Below the firebase project name you will get 1 app option. It means one react application connected to the firebase project.
+
+            -> If you click on the 1 app option you will get the web app name i.e "youtube-web-app".
+
+    STEP 9:
+        - Verify the connection between the firebase project and the react app.
+            
+            -> Click on the REAL TIME DATABASE service option (It comes under BUILD left side menu in your firebase project profile page).
+            
+            -> Now, you are into the REAL TIME DATABASE service page and click on CREATE DATABASE button.
+            
+            -> You will get a dialog box with dropdown. In that dropdown select real time database location i.e UNITED STATES(us-central1). Default option and click on NEXT button.
+            
+            -> After that you will get a security rules option in the same dialog box.
+            
+            -> Click on the second radio button i.e for START IN TEST MODE because in that mode you will get a read and write capability. Where in the first options you won't and click on the ENABLE button.
+            
+            -> This helps you to create a real time database and you will get DATABASE URL also.
+
+    STEP 10: 
+        - You can copy the DATABASE URL from the console box and go to firebase.js file.
+
+    STEP 11: 
+        - In this file please update firebaseConfig object with databaseURL key and save it. So here I added firebase DATABASE url in the firebase.js file.
+
+    STEP 12: 
+        - Go to App.js file and 
+            import { getDatabase } from "firebase/database";
+            import { app } from "./firebase";
+
+    STEP 13: 
+        - Updated firebase.js file code as shown in below
+
+            // Import the functions you need from the SDKs you need
+            import { initializeApp } from "firebase/app";
+            // TODO: Add SDKs for Firebase products that you want to use
+            // https://firebase.google.com/docs/web/setup#available-libraries
+
+            // Your web app's Firebase configuration
+            const firebaseConfig = {
+                apiKey: "AIzaSyAzACZiZRKIUkrQ4zfcXf-hxyU5PjWxoQY",
+                authDomain: "app-d8c4e.firebaseapp.com",
+                projectId: "app-d8c4e",
+                storageBucket: "app-d8c4e.appspot.com",
+                messagingSenderId: "50991172825",
+                appId: "1:50991172825:web:b19c684cf3b91518e4c2c8",
+                databaseURL: "https://app-d8c4e-default-rtdb.firebaseio.com",
+            };
+
+            // Initialize Firebase
+            export const app = initializeApp(firebaseConfig);
+
+    STEP 14: 
+        - Updated App.js file code as shown in the below
+
+            import { getDatabase, ref, set } from "firebase/database";
+            import { app } from "./firebase";
+            import "./App.css";
+
+            const db = getDatabase(app);
+            function App() {
+            // TO STORE A DATA INTO THE DATABASE
+            const putData = () => {
+                set(ref(db, "users/javed"), {
+                id: 1,
+                name: "Javed Hosamani",
+                age: 21,
+                });
+            };
+
+            return (
+                <div className="App">
+                <h1>Firebase React App</h1>
+                <button onClick={putData}>Put Data</button>
+                </div>
+            );
+            }
+
+            export default App;
+
+
+AUTHENTICATION IN FIREBASE OR FIREBASE REACT AUTHENTICATION
+    STEP-1:
+        - Click on the AUTHENTICATION Service option (It comes under BUILD left side menu in your firebase project profile page). to create a new authentication.
+
+    STEP-2:
+        - Now, you are into the authentication service profile page and click on the GET STARTED button to create a new authentication.
+
+    STEP-3:
+        - Here, you will get a so many of authentication service providers and I'll go with Email/Password Service.
+
+    STEP-4:
+        - Click on the Email/Password Service provider and you should enable only the Email/Password Service service provider not a Email Link(Password less sign-in) option. Then click the SAVE button.
+
+    STEP-5:
+        - Go to App.js file and update your settings.
+
+            // import { getDatabase, ref, set } from "firebase/database";
+            import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+            import { app } from "./firebase";
+            import "./App.css";
+
+            // const db = getDatabase(app);
+
+            const auth = getAuth(app);
+
+            function App() {
+            // TO STORE A DATA INTO THE DATABASE
+            /* const putData = () => {
+                set(ref(db, "users/javed"), {
+                id: 1,
+                name: "Javed Hosamani",
+                age: 21,
+                });
+            }; */
+
+            // TO CREATE A NEW USER
+            const signupUser = () => {
+                createUserWithEmailAndPassword(auth, "javed@gmail.com", "javed@123").then(
+                (value) => console.log(value)
+                );
+            };
+
+            return (
+                <div className="App">
+                <h1>Firebase React App</h1>
+                {/* <button onClick={putData}>Put Data</button> */}
+                <button onClick={signupUser}>Create User</button>
+                </div>
+            );
+            }
+
+            export default App;
+
+        - After updating the App.js file, start the react server and go to the console then click on the Create User button.
+
+        - You will get the entire information about the user(In the console).
+
+    STEP-6:
+        - After the console result, go to the firebase website please check your AUTHENTICATION Service page (It comes under BUILD left side menu in your firebase project profile page).
+
+            -> Below the Authentication (inside the AUTHENTICATION Service page) title will have a Users(First Option) option and click on that.
+
+            -> After that, next to Add User button will have a a refresh icon and click on that. 
+
+            -> It will refresh the Users and display the updated users detail.
+
+        
+https://www.youtube.com/watch?v=zlBUyfkzMZQ&list=PLinedj3B30sCw8Qjrct1DRglx4hWQx83C&index=4
+
