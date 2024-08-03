@@ -173,7 +173,7 @@ CHAPTER-4 : AUTHENTICATION IN FIREBASE OR FIREBASE REACT AUTHENTICATION (CREATIN
         - Click on the Email/Password Service provider and you should enable only the Email/Password Service service provider not a Email Link(Password less sign-in) option. Then click the SAVE button.
 
     STEP-5:
-        - Go to App.js file and update your settings.
+        - Go to App.js file and update your settings. (TEST CASE CODE)
 
             // import { getDatabase, ref, set } from "firebase/database";
             import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
@@ -216,7 +216,69 @@ CHAPTER-4 : AUTHENTICATION IN FIREBASE OR FIREBASE REACT AUTHENTICATION (CREATIN
 
         - You will get the entire information about the user(In the console).
 
-        - Same code comes under Signup.jsx page.
+        - The same code comes under the Signup.jsx page and is as shown below
+
+            import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
+            import React, { Fragment, useState } from 'react'
+            import { app } from '../firebase';
+
+            const auth = getAuth(app);
+            const SignupPage = () => {
+
+                const [email, setEmail] = useState("");
+                const [password, setPassword] = useState("");
+
+                const createUser = () =>{
+                    createUserWithEmailAndPassword(auth, email, password).then((value)=> alert("Success"));
+                }
+
+            return (
+                <Fragment>
+                    <div className="signup-page">
+                    <h1>Signup Page</h1>
+                        <label htmlFor="email">Email</label>
+                        <input type="email" name="email" id="email" placeholder='Enter your email here' onChange={e=>setEmail(e.target.value)} value={email}/>
+
+                        <label htmlFor="password">Password</label>
+                        <input type="password" name="password" id="password" placeholder='Enter your password here' onChange={e=>setPassword(e.target.value)} value={password}/>
+
+                        <button onClick={createUser}>Signup</button>
+                    </div>
+                </Fragment>
+            )
+            }
+
+            export default SignupPage;
+
+        - Updated App.js page and is as shown below.
+            import { getDatabase, ref, set } from "firebase/database";
+            import { app } from "./firebase";
+            import "./App.css";
+            import SignupPage from "./pages/Signup";
+
+            const db = getDatabase(app);
+
+            function App() {
+            // TO STORE A DATA INTO THE DATABASE
+            const putData = () => {
+                set(ref(db, "users/javed"), {
+                id: 1,
+                name: "Javed Ali Hosamani",
+                age: 21,
+                });
+            };
+
+            return (
+                <div className="App">
+                <h1>Firebase React App</h1>
+                <button onClick={putData}>Put Data</button>
+                <SignupPage />
+                </div>
+            );
+            }
+
+            export default App;
+
 
     STEP-6:
         - After the console result, go to the firebase website please check your AUTHENTICATION Service page (It comes under BUILD left side menu in your firebase project profile page).
@@ -230,7 +292,155 @@ CHAPTER-4 : AUTHENTICATION IN FIREBASE OR FIREBASE REACT AUTHENTICATION (CREATIN
 
 CHAPTER-4 : LOGIN WITH FIREBASE AND REACT | FIREBASE AUTHENTICATION (LOGIN ACCOUNT USING SIGNIN.JSX PAGE  AND IT COMES UNDER PAGES FOLDER)
     STEP-1 : 
-        - 
+        - SIGNIN.JSX PAGE CODE
+            import React, { Fragment, useState } from 'react'
+            import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+            import { app } from '../firebase';
+
+            const auth = getAuth(app);
+
+            const SigninPage = () => {
+                const [email, setEmail] = useState("");
+                const [password, setPassword] = useState("");
+
+                const singinUser = () => {
+                    signInWithEmailAndPassword(auth, email, password)
+                    .then((value)=> alert("SignIn Success"))
+                    .catch(error => console.log(error));
+            
+                }
+            return (
+                <Fragment>
+                    <div className="signin-page">
+                    <h1>Signin Page</h1>
+                        <label htmlFor="email">Enter your Email</label>
+                        <input type="email" name="email" id="email" placeholder='Enter your email here' onChange={e=>setEmail(e.target.value)} value={email}/>
+
+                        <label htmlFor="password">Enter your Password</label>
+                        <input type="password" name="password" id="password" placeholder='Enter your password here' onChange={e=>setPassword(e.target.value)} value={password}/>
+
+                        <button onClick={singinUser}>Sign me in</button>
+                    </div>
+                </Fragment>
+            )
+            }
+
+            export default SigninPage;
+
+    STEP-2 : 
+        - UPDATED APP.JS FILE.
+
+            import { getDatabase, ref, set } from "firebase/database";
+            import { app } from "./firebase";
+            import "./App.css";
+            import SignupPage from "./pages/Signup";
+            import SigninPage from "./pages/Signin";
+
+            const db = getDatabase(app);
+
+            function App() {
+            // TO STORE A DATA INTO THE DATABASE
+            const putData = () => {
+                set(ref(db, "users/javed"), {
+                id: 1,
+                name: "Javed Ali Hosamani",
+                age: 21,
+                });
+            };
+
+            return (
+                <div className="App">
+                <h1>Firebase React App</h1>
+                <button onClick={putData}>Put Data</button>
+                <SignupPage />
+                <SigninPage />
+                </div>
+            );
+            }
+
+            export default App;
+
+        - The above code is only for test case and actual code will comes under CHAPTER-5
+
+
+CHAPTER-5 : CORRECT WAY OF USING FIREBASE IN REACT APPLICATION.
+    STEP-1 : 
+        - Create a Firebase.jsx file inside the context folder and context folder should in inside the src folder.
+
+        - Firebase.jsx file Code is as shown in the below.
+
+            import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+            import React, { createContext, useContext } from 'react'
+            import { app } from '../firebase';
+            import { getDatabase, ref, set } from 'firebase/database';
+
+            const firebaseAuth = getAuth(app);
+            const firebaseDB = getDatabase(app);
+
+            const FirebaseContext = createContext(null);
+            export const useFirebase = () => useContext(FirebaseContext);
+
+            const FirebaseProvider = (props) => {
+                const signupUserWithEmailAndPassword = (email, password) => {
+                    return createUserWithEmailAndPassword(firebaseAuth, email, password);
+                }
+                const putData = (key, data) => set(ref(firebaseDB, key), data);
+
+            return (
+                <FirebaseContext.Provider value={{signupUserWithEmailAndPassword, putData}}>
+                    {props.children}
+                </FirebaseContext.Provider>
+            )
+            }
+
+            export default FirebaseProvider;
+
+    STEP-2 : 
+        - Updated App.js file is as shown in below.
+            import { useState } from "react";
+            import "./App.css";
+            import { useFirebase } from "./context/Firebase";
+
+            function App() {
+            const firebase = useFirebase();
+            const [email, setEmail] = useState("");
+            const [password, setPassword] = useState("");
+
+            console.log("Firebase", firebase);
+
+            return (
+                <div className="App">
+                <h1>Firebase React App</h1>
+                <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    placeholder="Enter Email"
+                    onChange={(e) => setEmail(e.target.value)}
+                    value={email}
+                />
+                <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    placeholder="Enter password"
+                    onChange={(e) => setPassword(e.target.value)}
+                    value={password}
+                />
+                <button
+                    onClick={() => {
+                    firebase.signupUserWithEmailAndPassword(email, password);
+                    firebase.putData("users/manu", { email, password });
+                    }}
+                >
+                    SignUp
+                </button>
+                </div>
+            );
+            }
+
+            export default App;
+
 
 https://www.youtube.com/watch?v=zlBUyfkzMZQ&list=PLinedj3B30sCw8Qjrct1DRglx4hWQx83C&index=4
 
