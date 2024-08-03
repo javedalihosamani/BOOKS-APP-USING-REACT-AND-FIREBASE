@@ -1,33 +1,27 @@
-// import { getDatabase, ref, set } from "firebase/database";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getDatabase, ref, set } from "firebase/database";
 import { app } from "./firebase";
 import "./App.css";
-import Signup from "./pages/Signup";
+import SignupPage from "./pages/Signup";
+import SigninPage from "./pages/Signin";
 
-// const db = getDatabase(app);
-
-const auth = getAuth(app);
+const db = getDatabase(app);
 
 function App() {
   // TO STORE A DATA INTO THE DATABASE
-  /* const putData = () => {
+  const putData = () => {
     set(ref(db, "users/javed"), {
       id: 1,
-      name: "Javed Hosamani",
+      name: "Javed Ali Hosamani",
       age: 21,
     });
-  }; */
-
-  // TO CREATE A NEW USER
-  const signupUser = () => {
-    createUserWithEmailAndPassword(auth, "javed@gmail.com", "javed@123").then(
-      (value) => console.log(value)
-    );
   };
 
   return (
     <div className="App">
-      <Signup />
+      <h1>Firebase React App</h1>
+      <button onClick={putData}>Put Data</button>
+      <SignupPage />
+      <SigninPage />
     </div>
   );
 }

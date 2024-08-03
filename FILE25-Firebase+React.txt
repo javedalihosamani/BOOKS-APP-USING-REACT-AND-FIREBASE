@@ -1,4 +1,4 @@
-WHAT IS A FIREBASE?
+CHAPTER-1 : WHAT IS A FIREBASE?
     - Firebase is a set of backend cloud computing services and application development platforms provided by Google.
     
     - It hosts databases, services, authentication, and integration for a variety of applications, including Android, iOS, JavaScript, Node.js, Java, Unity, PHP, and C++. 
@@ -6,7 +6,7 @@ WHAT IS A FIREBASE?
     - Discover Firebase, Google's mobile and web app development platform that helps developers build apps and games that users will love.
 
 
-STEPS FOR TO CREATE A FIREBASE SERVICE.
+CHAPTER-2 : STEPS FOR TO CREATE A FIREBASE SERVICE.
     STEP-1 :
         - Go to Firebase official website and login with your google account.
 
@@ -45,7 +45,7 @@ STEPS FOR TO CREATE A FIREBASE SERVICE.
             -> FUNCTIONS, MACHINE LEARNING(This is a Service) is available, and these are the basic overview of firebase.
 
 
-HOW TO SET UP A REACT AND FIREBASE PROJECT?
+CHAPTER-3 : HOW TO SET UP A REACT AND FIREBASE PROJECT?
     STEP 1: 
         - Create a new REACT application.
     
@@ -150,8 +150,8 @@ HOW TO SET UP A REACT AND FIREBASE PROJECT?
 
             return (
                 <div className="App">
-                <h1>Firebase React App</h1>
-                <button onClick={putData}>Put Data</button>
+                    <h1>Firebase React App</h1>
+                    <button onClick={putData}>Put Data</button>
                 </div>
             );
             }
@@ -159,7 +159,7 @@ HOW TO SET UP A REACT AND FIREBASE PROJECT?
             export default App;
 
 
-AUTHENTICATION IN FIREBASE OR FIREBASE REACT AUTHENTICATION
+CHAPTER-4 : AUTHENTICATION IN FIREBASE OR FIREBASE REACT AUTHENTICATION (CREATING AN ACCOUNT USING SIGNUP.JSX PAGE AND IT COMES UNDER PAGES FOLDER)
     STEP-1:
         - Click on the AUTHENTICATION Service option (It comes under BUILD left side menu in your firebase project profile page). to create a new authentication.
 
@@ -216,6 +216,8 @@ AUTHENTICATION IN FIREBASE OR FIREBASE REACT AUTHENTICATION
 
         - You will get the entire information about the user(In the console).
 
+        - Same code comes under Signup.jsx page.
+
     STEP-6:
         - After the console result, go to the firebase website please check your AUTHENTICATION Service page (It comes under BUILD left side menu in your firebase project profile page).
 
@@ -225,6 +227,10 @@ AUTHENTICATION IN FIREBASE OR FIREBASE REACT AUTHENTICATION
 
             -> It will refresh the Users and display the updated users detail.
 
-        
+
+CHAPTER-4 : LOGIN WITH FIREBASE AND REACT | FIREBASE AUTHENTICATION (LOGIN ACCOUNT USING SIGNIN.JSX PAGE  AND IT COMES UNDER PAGES FOLDER)
+    STEP-1 : 
+        - 
+
 https://www.youtube.com/watch?v=zlBUyfkzMZQ&list=PLinedj3B30sCw8Qjrct1DRglx4hWQx83C&index=4
 
