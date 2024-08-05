@@ -1,40 +1,43 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
-import { useFirebase } from "./context/Firebase";
+import SignupPage from "./pages/Signup";
+import SigninPage from "./pages/Signin";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { app } from "./firebase";
 
+const auth = getAuth(app);
 function App() {
-  const firebase = useFirebase();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [user, setUser] = useState(null);
 
-  console.log("Firebase", firebase);
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        console.log("You are logged out");
+        setUser(null);
+      }
+    });
+  }, []);
+  console.log("User", user);
+  if (user === null) {
+    return (
+      <div className="App">
+        <SignupPage />
+        <SigninPage />
+      </div>
+    );
+  }
 
   return (
     <div className="App">
-      <h1>Firebase React App</h1>
-      <input
-        type="email"
-        name="email"
-        id="email"
-        placeholder="Enter Email"
-        onChange={(e) => setEmail(e.target.value)}
-        value={email}
-      />
-      <input
-        type="password"
-        name="password"
-        id="password"
-        placeholder="Enter password"
-        onChange={(e) => setPassword(e.target.value)}
-        value={password}
-      />
+      <h1>Hello {user.email}</h1>
       <button
         onClick={() => {
-          firebase.signupUserWithEmailAndPassword(email, password);
-          firebase.putData("users/manu", { email, password });
+          signOut(auth);
         }}
       >
-        SignUp
+        Logout
       </button>
     </div>
   );

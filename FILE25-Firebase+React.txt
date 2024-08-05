@@ -441,6 +441,150 @@ CHAPTER-5 : CORRECT WAY OF USING FIREBASE IN REACT APPLICATION.
 
             export default App;
 
+CHAPTER-6 : FIREBASE GOOGLE AUTHENTICATION REACT
+    STEP-1 :
+        - Go to FIREBASE AUTHENTICATION Service page and below the Authentication title, will have a 6 options is as shown below.
+            -> OPTION-1 : Users
+            -> OPTION-2 : Sign-In-Method (Click to Google Authentication)
+            -> OPTION-3 : Templates 
+            -> OPTION-4 : Usage
+            -> OPTION-5 : Settings
+            -> OPTION-6 : Extensions
 
-https://www.youtube.com/watch?v=zlBUyfkzMZQ&list=PLinedj3B30sCw8Qjrct1DRglx4hWQx83C&index=4
+    STEP-2 : 
+        - Inside the Sign-In-Method page, click on the ADD NEW PROVIDER button and select the Google.
+        - You should enabled the Google Provider radio button option and go to the second text field i.e for Support email for project. 
+        - Inside the second text field, will have an option to select your google mail.
+        - You should select your Google email and scroll down the page to click on the SAVE button.
+
+    STEP-3 : 
+        - Next, go to Signup.jsx (Inside the pages folder) file and update it.
+            import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+            import React, { Fragment, useState } from 'react'
+            import { app } from '../firebase';
+
+            const auth = getAuth(app);
+            const googleProvider = new GoogleAuthProvider();
+
+            const SignupPage = () => {
+
+                const [email, setEmail] = useState("");
+                const [password, setPassword] = useState("");
+
+                const createUser = () =>{
+                    createUserWithEmailAndPassword(auth, email, password).then((value)=> alert("Success"));
+                }
+
+                const signupWithGoogle = () => {
+                signInWithPopup(auth, googleProvider);
+                }
+            return (
+                <Fragment>
+                    <div className="signup-page">
+                    <h1>Signup Page</h1>
+                        <label htmlFor="email">Email</label>
+                        <input type="email" name="email" id="email" placeholder='Enter your email here' onChange={e=>setEmail(e.target.value)} value={email}/>
+
+                        <label htmlFor="password">Password</label>
+                        <input type="password" name="password" id="password" placeholder='Enter your password here' onChange={e=>setPassword(e.target.value)} value={password}/>
+
+                        <br />
+                        <button onClick={signupWithGoogle}>Sign In With Google</button>
+                        <button onClick={createUser}>Signup</button>
+                    </div>
+                </Fragment>
+            )
+            }
+
+            export default SignupPage;
+
+        - SigninPage.jsx file updated code.
+            import React, { Fragment, useState } from 'react'
+            import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+            import { app } from '../firebase';
+
+            const auth = getAuth(app);
+
+            const SigninPage = () => {
+                const [email, setEmail] = useState("");
+                const [password, setPassword] = useState("");
+
+                const singinUser = () => {
+                    signInWithEmailAndPassword(auth, email, password)
+                    .then((value)=> alert("SignIn Success"))
+                    .catch(error => console.log(error));
+            
+                }
+            return (
+                <Fragment>
+                    <div className="signin-page">
+                    <h1>Signin Page</h1>
+                        <label htmlFor="email">Enter your Email</label>
+                        <input type="email" name="email" id="email" placeholder='Enter your email here' onChange={e=>setEmail(e.target.value)} value={email}/>
+
+                        <label htmlFor="password">Enter your Password</label>
+                        <input type="password" name="password" id="password" placeholder='Enter your password here' onChange={e=>setPassword(e.target.value)} value={password}/>
+
+                        <button onClick={singinUser}>Sign me in</button>
+                    </div>
+                </Fragment>
+            )
+            }
+
+            export default SigninPage;
+
+        - App.js file updated Code.
+            import { useEffect, useState } from "react";
+            import "./App.css";
+            import SignupPage from "./pages/Signup";
+            import SigninPage from "./pages/Signin";
+            import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+            import { app } from "./firebase";
+
+            const auth = getAuth(app);
+            function App() {
+            const [user, setUser] = useState(null);
+
+            useEffect(() => {
+                onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    setUser(user);
+                } else {
+                    console.log("You are logged out");
+                    setUser(null);
+                }
+                });
+            }, []);
+            console.log("User", user);
+            if (user === null) {
+                return (
+                <div className="App">
+                    <SignupPage />
+                    <SigninPage />
+                </div>
+                );
+            }
+
+            return (
+                <div className="App">
+                <h1>Hello {user.email}</h1>
+                <button
+                    onClick={() => {
+                    signOut(auth);
+                    }}
+                >
+                    Logout
+                </button>
+                </div>
+            );
+            }
+
+            export default App;
+
+
+CHAPTER-7 : GETTING LOGGED IN USER IN FIREBASE.
+    STEP-1 : 
+        -
+
+https://www.youtube.com/watch?v=pngnEWGyDwE&list=PLinedj3B30sCw8Qjrct1DRglx4hWQx83C&index=8
 
