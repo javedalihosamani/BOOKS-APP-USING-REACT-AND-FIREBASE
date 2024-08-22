@@ -12,7 +12,6 @@ const SigninPage = () => {
         signInWithEmailAndPassword(auth, email, password)
         .then((value)=> alert("SignIn Success"))
         .catch(error => console.log(error));
-  
     }
   return (
     <Fragment>

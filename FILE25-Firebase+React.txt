@@ -18,13 +18,14 @@ CHAPTER-2 : STEPS FOR TO CREATE A FIREBASE SERVICE.
 
     STEP-4 :
         - Enter your project name ("youtube-app" => This is my project name) and click on the continue button and then disabled google analytic option then click to CREATE PROJECT button. 
+        
         - After that it will take a time to create a new project and then click on CONTINUE button to continue.
 
     STEP-5 :
         - After that you will get a new project profile page.
 
     STEP-6 :
-        - In your project profile page, at the right side of your menu you will get a so many options.(BUILD, RUN, ANALYTICS)
+        - In your firebase project profile page, at the right side of your menu you will get a so many options.(BUILD, RUN, ANALYTICS)
 
     STEP-7 :
         - Click on the BUILD option and you will get a so many options.
@@ -62,7 +63,7 @@ CHAPTER-3 : HOW TO SET UP A REACT AND FIREBASE PROJECT?
         - In the connection(Add Firebase to your web App) page, you will get a text box for to register your web app and my application name is "youtube-web-app" then click on the REGISTER APP" button.
 
     STEP 6: 
-        - After you have registered you will get a cmd NPM I FIREBASE.
+        - You will have to registered firebase so you will get a cmd NPM I FIREBASE.
 
     STEP 7: 
         - Go back to the react app and install the cmd i.e NPM I FIREBASE
@@ -350,10 +351,10 @@ CHAPTER-4 : LOGIN WITH FIREBASE AND REACT | FIREBASE AUTHENTICATION (LOGIN ACCOU
 
             return (
                 <div className="App">
-                <h1>Firebase React App</h1>
-                <button onClick={putData}>Put Data</button>
-                <SignupPage />
-                <SigninPage />
+                    <h1>Firebase React App</h1>
+                    <button onClick={putData}>Put Data</button>
+                    <SignupPage />
+                    <SigninPage />
                 </div>
             );
             }
@@ -396,7 +397,7 @@ CHAPTER-5 : CORRECT WAY OF USING FIREBASE IN REACT APPLICATION.
             export default FirebaseProvider;
 
     STEP-2 : 
-        - Updated App.js file is as shown in below.
+        - Create a RealTimeDB.jsx file inside the database folder and update is as shown below.
             import { useState } from "react";
             import "./App.css";
             import { useFirebase } from "./context/Firebase";
@@ -441,6 +442,49 @@ CHAPTER-5 : CORRECT WAY OF USING FIREBASE IN REACT APPLICATION.
 
             export default App;
 
+    STEP-3:
+        - Updated App.js file code is as shown below.
+            import RealTimeDB from "./database/RealTimeDB";
+            import "./App.css";
+
+            function App() {
+            return (
+                <div className="App">
+                <RealTimeDB />
+                </div>
+            );
+            }
+
+            export default App;
+
+
+    STEP-4: 
+        - Updated index.js file is as shown in the below.
+
+            import React from "react";
+            import ReactDOM from "react-dom/client";
+            import "./index.css";
+            import App from "./App";
+            import reportWebVitals from "./reportWebVitals";
+            import FirebaseProvider from "./context/Firebase";
+
+            const root = ReactDOM.createRoot(document.getElementById("root"));
+            root.render(
+            <React.StrictMode>
+                <FirebaseProvider>
+                <App />
+                </FirebaseProvider>
+            </React.StrictMode>
+            );
+
+            // If you want to start measuring performance in your app, pass a function
+            // to log results (for example: reportWebVitals(console.log))
+            // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+            reportWebVitals();
+
+
+
+
 CHAPTER-6 : FIREBASE GOOGLE AUTHENTICATION REACT
     STEP-1 :
         - Go to FIREBASE AUTHENTICATION Service page and below the Authentication title, will have a 6 options is as shown below.
@@ -453,8 +497,11 @@ CHAPTER-6 : FIREBASE GOOGLE AUTHENTICATION REACT
 
     STEP-2 : 
         - Inside the Sign-In-Method page, click on the ADD NEW PROVIDER button and select the Google.
+        
         - You should enabled the Google Provider radio button option and go to the second text field i.e for Support email for project. 
+        
         - Inside the second text field, will have an option to select your google mail.
+        
         - You should select your Google email and scroll down the page to click on the SAVE button.
 
     STEP-3 : 
@@ -581,10 +628,313 @@ CHAPTER-6 : FIREBASE GOOGLE AUTHENTICATION REACT
 
             export default App;
 
+    - This Logout button is for Email/Password Text box also.
 
-CHAPTER-7 : GETTING LOGGED IN USER IN FIREBASE.
+CHAPTER-7 : GETTING STARTED WITH FIREBASE FIRESTORE
     STEP-1 : 
-        -
+        - Cloud Firestore is a NoSQL document database that lets you easily store, sync, and query data for your mobile and web apps.
 
-https://www.youtube.com/watch?v=pngnEWGyDwE&list=PLinedj3B30sCw8Qjrct1DRglx4hWQx83C&index=8
+        - Go to FIRESTORE DATABASE Service (It comes under BUILD left side menu in your firebase project profile page) option.
 
+        - You will get a CREATE DATABASE button and click on that to create a cloud base database.
+
+        - When you click on the CREATE DATABASE button, you will get a new popup window.
+        
+        - If you want to change the location of your database, you can take help from the second option i.e dropdown. Here I'm taking the default one i.e nam5(United States).
+
+        - After the location selection is done please click on the NEXT button.
+
+        - Again you will get a 2 options for security rules.
+            1) Start in Production mode (Note : Don't select this one because it won't alow's you to read and write)
+            2) Start in Test mode (Note : Select this one because it alow's you to read and write)
+
+        - And then click on the CREATE button to create a new database.
+
+    STEP-2 :
+        - Inside the CLOUD FIRETORE page will have an option to create a new collection and click on that.
+
+        - you will get a new popup for to create a new collection and my collection name is users(small letter).
+
+        - You have created a new collection users then click on the NEXT button.
+
+        -  You will get a second option after clicking the NEXT button, in which you click on Auto-ID button for to generate the auto ID for users collection and you should enter the required fields with datatype and value is as shown below.
+
+            field   Type        Value
+            --------------------------------
+            Name    string      Javed
+            Age     number      21
+            isMale  boolean     true
+
+        - After entering the fields please click on the SAVE button.
+
+    STEP-3 :
+        - You can see the entire details of the users collection in side the FIRESTORE DATABASE service page.
+
+        - You can add few more details to the users by clicking on the ADD DOCUMENT button.(Middle Option) 
+
+        - Again, you have to auto generate the Auto-ID and enter the field details and updated details in the database.
+
+    STEP-4 : 
+        - In side the last option you have an option Start Collection. This option is used to define a field as a collection.
+
+        - In the last option, click the "Start Collection" button to create a new collection (Collection inside the collection.) you will get a new popup to create a collection inside the collection is as shown below.
+
+        - Enter the collection name as "purchases" in the text box and click on the next button and result is shown as below.
+        
+        - /users/53LpHznyACfUqCsWTJvO/purchases - Below this option click on the Auto-ID button to generate a new purchase ID and enter the fields of the purchase option is as shown below.
+
+            /users/53LpHznyACfUqCsWTJvO/purchases
+            /users/53LpHznyACfUqCsWTJvO/purchases/6BbnTUsR3VFVlvlwCnJ6 (Auto-ID)
+
+            PURCHASES COLLECTION Fields 
+
+            field   Type        Value
+            --------------------------------
+            Name    string      Macbook
+            Price   number      100000
+
+        - After the field, click on the SAVE button.
+
+
+CHAPTER-8 : HOW TO UPDATE THE FIRESTORE DATABASE USING REACT APPLICATION.
+
+    STEP-1 : INSERT DATA INTO FIRESTORE.
+
+        - Create a new component(FireStore.jsx) inside the firestore folder and update it is as shown in the below.
+
+        FireStore.jsx file
+
+            import React from 'react';
+            import { getFirestore, collection, addDoc, doc, getDoc, query, where, getDocs, updateDoc } from 'firebase/firestore';
+            import { app } from '../firebase';
+
+            const firestore = getFirestore(app);
+
+            const FireStore = () => {
+
+                // Create a new collection
+                const writeData = async () => {
+                    const result = await addDoc(collection(firestore, 'cities'),{
+                        name: "Bengaluru",
+                        pinCode : 560078,
+                        lat : 123,
+                        long : 456
+                    });
+                    console.log("Result = ", result);
+                }
+
+                // Create a subCollection 
+                const makeSubCollection = async () => {
+                    await addDoc(collection(firestore, 'cities/uajzG3qsoOaUUxXja9bf/places'),{
+                        name : 'This is a place',
+                        desc : 'Awesome desc',
+                        date : Date.now()
+                    });
+                }
+
+                // Read a data from Firestore
+                const getDocuments = async () => {
+                    const ref =  doc(firestore, 'cities', 'uajzG3qsoOaUUxXja9bf');
+                    const snap = await getDoc(ref);
+                    console.log("Snap", snap.data());        
+                }
+
+                // Get Document by Query
+                const getDocumentsByQuery = async () => {
+                    const collectionRef = await collection(firestore, 'users');
+                    
+                    const q = query(collectionRef, where('isMale', "==", true));
+
+                    const snapshot = await getDocs(q);
+                    snapshot.forEach((data)=>console.log("getDocumentsByQuery", data.data()))
+                }
+
+                // Update Collection
+                const update = async () => {
+                    const docRef = doc(firestore, 'cities', 'uajzG3qsoOaUUxXja9bf');
+                    await updateDoc(docRef, {
+                        name : "Mysore",
+                    })
+                }
+            return (
+                <div>
+                    <center>
+                        <h1>FireStore</h1>
+                    </center>
+                    <hr />
+
+                    <button onClick={writeData}>Put Data</button>
+                    <button onClick={makeSubCollection}>Put Sub Data</button>
+                    <button onClick={getDocuments}>Get Document</button>
+                    <button onClick={getDocumentsByQuery}>Get Documents By Query</button>
+                    <button onClick={update}>Update Collection</button>
+                </div>
+            )
+            }
+
+            export default FireStore
+
+    STEP-2 : Update App.js file is as shown below.
+
+        import "./App.css";
+        import FireStore from "./fireStore/FireStore";
+
+        function App() {
+        return (
+            <div className="App">
+            <FireStore />
+            </div>
+        );
+        }
+
+        export default App;
+
+    STEP-3 : Refresh your Firestore profile page and you will get a new Collection data.
+
+
+CHAPTER-9 : HOW TO SETUP REAL TIME DATABASE WITH REACT
+    
+    STEP-1 : Updated RealTimeDB.jsx (Comes under database folder) file is as shown below 
+
+        import React from 'react'
+        import { useFirebase } from '../context/Firebase'
+        import { useState } from "react";
+
+        const RealTimeDB = () => {
+            const firebase = useFirebase();
+            const [email, setEmail] = useState("");
+            const [password, setPassword] = useState("");
+
+            console.log("Firebase", firebase);
+
+            // Insert a New Data into the DATABASE
+            const putDataNew = () => {
+                firebase.putData("grandfather/father/child", {id:1, name:"ganesh", age:21});
+            }
+
+            return (
+                <div>
+                    <h1>Firebase React App</h1>
+                    <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        placeholder="Enter Email"
+                        onChange={(e) => setEmail(e.target.value)}
+                        value={email}
+                    />
+                    <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        placeholder="Enter password"
+                        onChange={(e) => setPassword(e.target.value)}
+                        value={password}
+                    />
+                    <button
+                        onClick={() => {
+                            firebase.signupUserWithEmailAndPassword(email, password);
+                            firebase.putData("users/manu", { email, password });
+                        }}
+                        >
+                            SignUp
+                    </button>
+                    <button onClick={putDataNew}>Trigger</button>
+                </div>
+            )
+        }
+
+        export default RealTimeDB
+
+    STEP-2 : Updated Firebase.jsx file (Comes under context folder) is as shown below.
+
+        import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+        import React, { createContext, useContext, useEffect, useState } from 'react'
+        import { app } from '../firebase';
+        import { getDatabase, ref, set, get, child, onValue } from 'firebase/database';
+
+        const firebaseAuth = getAuth(app);
+        const firebaseDB = getDatabase(app);
+
+        const FirebaseContext = createContext(null);
+        export const useFirebase = () => useContext(FirebaseContext);
+
+        const FirebaseProvider = (props) => {
+
+            const [name, setName] = useState("");
+
+            const signupUserWithEmailAndPassword = (email, password) => {
+                return createUserWithEmailAndPassword(firebaseAuth, email, password);
+            }
+            const putData = (key, data) => set(ref(firebaseDB, key), data);
+
+            // Get the data from Database
+            /* get(child(ref(firebaseDB), 'grandfather')).then((snapshot) => {
+            console.log('Get Child', snapshot.val());
+            });
+            get(child(ref(firebaseDB), 'grandfather/father')).then((snapshot) => {
+            console.log('Get Child', snapshot.val());
+            }); */
+            get(child(ref(firebaseDB), 'grandfather/father/child')).then((snapshot) => {
+            console.log('Get Child', snapshot.val());
+            });
+
+            onValue(ref(firebaseDB, 'grandfather/father/child'), (snapshot) => 
+            console.log('Onvalue', snapshot.val())
+            );
+
+            useEffect(()=>{
+            onValue(ref(firebaseDB, 'grandfather/father/child'), (snapshot) => 
+                setName(snapshot.val().name)
+            );
+            },[]);
+        return (
+            <FirebaseContext.Provider value={{signupUserWithEmailAndPassword, putData}}>
+                <h3>Name is : {name}</h3>
+                {props.children}
+            </FirebaseContext.Provider>
+        )
+        }
+
+        export default FirebaseProvider;
+
+    STEP-3 : Updated App.js file is as shown below 
+
+        import RealTimeDB from "./database/RealTimeDB";
+        import "./App.css";
+
+        function App() {
+        return (
+            <div className="App">
+            <RealTimeDB />
+            </div>
+        );
+        }
+
+        export default App;
+
+    STEP-4 : Updated index.js file is as shown below.
+
+        import React from "react";
+        import ReactDOM from "react-dom/client";
+        import "./index.css";
+        import App from "./App";
+        import reportWebVitals from "./reportWebVitals";
+        import FirebaseProvider from "./context/Firebase";
+
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(
+        <React.StrictMode>
+            <FirebaseProvider>
+            <App />
+            </FirebaseProvider>
+        </React.StrictMode>
+        );
+
+        // If you want to start measuring performance in your app, pass a function
+        // to log results (for example: reportWebVitals(console.log))
+        // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+        reportWebVitals();
+
+
+CHAPTER-10 : FIREBASE REACT PROJECT SETUP | COMPLETE FIREBASE REACT FOR BEGINNER'S 
